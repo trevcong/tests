@@ -124,7 +124,7 @@ class Maze():
  
         # Initialize frontier to just the starting position
         start = Node(state=self.start, parent=None, action=None)
-        frontier = StackFrontier() #DFS since stack
+        frontier = StackFrontier() #DFS since stack, QueueFrontier() for BFS
         frontier.add(start)
  
         # Initialize an empty explored set
