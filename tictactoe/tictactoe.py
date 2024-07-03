@@ -1,12 +1,16 @@
 """
 Tic Tac Toe Player
 """
-
+import copy
 import math
 
 X = "X"
 O = "O"
 EMPTY = None
+currentplayer = 'X'
+
+def copyboard(board):
+    return copy.deepcopy(board)
 
 
 def initial_state():
@@ -19,45 +23,82 @@ def initial_state():
 
 
 def player(board):
-    """
-    Returns player who has the next turn on a board.
-    """
-    raise NotImplementedError
+    x = 0
+    o = 0
 
+    for row in board:
+        x += row.count(X)
+        o += row.count(O)
+
+        if x > o:
+            return O
+        else:
+            return X
 
 def actions(board):
-    """
-    Returns set of all possible actions (i, j) available on the board.
-    """
-    raise NotImplementedError
+    avaliblelocations = []
+    for i in range(len(board)):
+        for j in range(len(board[i])):
+            if board[i][j] == EMPTY:
+                avaliblelocations.append((i, j))
+    return avaliblelocations
+    
 
 
 def result(board, action):
-    """
-    Returns the board that results from making move (i, j) on the board.
-    """
-    raise NotImplementedError
+    moves = actions(board)
+    if action not in moves:
+        raise ValueError
+    newboard = copyboard(board)
+    moveaction = list(action)
+    newboard[moveaction[0][moveaction[1]]]
+    return newboard
+    
 
 
 def winner(board):
     """
-    Returns the winner of the game, if there is one.
+    Returns the winner of the game if there is one, otherwise None.
     """
-    raise NotImplementedError
+    # Check rows for winner
+    for row in board:
+        if row[0] == row[1] == row[2] and row[0] is not EMPTY:
+            return row[0]
+
+    # Check columns for winner
+    for col in range(3):
+        if board[0][col] == board[1][col] == board[2][col] and board[0][col] is not EMPTY:
+            return board[0][col]
+
+    # Check diagonals for winner
+    if board[0][0] == board[1][1] == board[2][2] and board[0][0] is not EMPTY:
+        return board[0][0]
+    if board[0][2] == board[1][1] == board[2][0] and board[0][2] is not EMPTY:
+        return board[0][2]
+
+    return None
+
 
 
 def terminal(board):
-    """
-    Returns True if game is over, False otherwise.
-    """
-    raise NotImplementedError
+    if winner(board) is not None:
+        return True
+    
+    for row in board:
+        if EMPTY in row:
+            return False
+    
+    return False
 
 
 def utility(board):
-    """
-    Returns 1 if X has won the game, -1 if O has won, 0 otherwise.
-    """
-    raise NotImplementedError
+    win = winner(board)
+    if win == "X":
+        return 1
+    elif win == "O":
+        return -1
+    else:
+        return 0 
 
 
 def minimax(board):
