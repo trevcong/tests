@@ -119,7 +119,7 @@ class Maze():
     def solve(self):
         """Finds a solution to maze, if one exists."""
  
-        # Keep track of number of states explored
+        # Keep track of number of states explored!
         self.num_explored = 0
  
         # Initialize frontier to just the starting position
