@@ -102,9 +102,9 @@ def utility(board):
 
 
 def minimax(board):
-
+    #todo
     #TODO
-    
+
     def maxval(board):
         if terminal(board):
             return utility(board)
