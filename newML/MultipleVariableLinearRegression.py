@@ -115,7 +115,7 @@ def gradient_descent(X, y, w_in, b_in, cost_function, gradient_function, alpha, 
     
     # An array to store cost J and w's at each iteration primarily for graphing later
     J_history = []
-    w = copy.deepcopy(w_in)  #avoid modifying global w within function
+    w = copy.deepcopy(w_in)  #avoid modifying global w wi thin function
     b = b_in
     
     for i in range(num_iters):
